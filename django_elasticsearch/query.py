@@ -370,6 +370,9 @@ class EsQueryset(QuerySet):
                           id=pk)
         self._response = r
 
+        # porting the _id field into inside the _source field
+        r['_source']['id'] = r['_id']
+
         if self._deserialize:
             return self.model.es.deserialize(r['_source'])
         else:
